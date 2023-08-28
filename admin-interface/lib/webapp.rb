@@ -140,21 +140,23 @@ class SandstormAdminWrapperSite < Sinatra::Base
     end
   end
 
-  # def which(command)
-  #   exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
-  #   ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
-  #     exts.each do |ext|
-  #       exe = File.join(path, "#{command}#{ext}")
-  #       return exe if File.executable?(exe) && !File.directory?(exe)
-  #     end
-  #   end
-  #   nil
-  # end
+  def which(command)
+    exts = ENV['PATHEXT'] ? ENV['PATHEXT'].split(';') : ['']
+    ENV['PATH'].split(File::PATH_SEPARATOR).each do |path|
+      exts.each do |ext|
+        exe = File.join(path, "#{command}#{ext}")
+        return exe if File.executable?(exe) && !File.directory?(exe)
+      end
+    end
+    nil
+  end
 
   def steamcmd_installed?
-    # on_path = WINDOWS ? which("steamcmd.exe") : (which("steamcmd") || which("steamcmd.sh"))
-    # return on_path unless on_path.nil?
-    STEAMCMD_EXE if File.exist? STEAMCMD_EXE
+    if File.exist? STEAMCMD_EXE
+      return STEAMCMD_EXE 
+    else
+      on_path = WINDOWS ? which("steamcmd.exe") : (which("steamcmd") || which("steamcmd.sh"))
+      return on_path unless on_path.nil?
   end
 
   def game_server_installed?
