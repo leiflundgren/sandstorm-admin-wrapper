@@ -1,13 +1,13 @@
-FROM ruby:2.7-slim-buster
+FROM ruby:2.7-slim-bullseye
 
 
 RUN apt-get update
 
 # General dependencies
-RUN apt-get install -y wget make gcc
+RUN apt-get install -y wget make gcc iputils-ping
 
 # Install Steamcmd dependencies
-RUN apt-get install -y lib32gcc1
+RUN apt-get install -y lib32gcc-s1
 
 # Sandstorm server won't run under root
 RUN useradd -ms /bin/bash sandstorm
@@ -26,7 +26,10 @@ RUN rm steamcmd/installation/steamcmd_linux.tar.gz
 
 RUN cp config/config.toml.docker config/config.toml
 
-RUN gem install bundler:1.17.2
+RUN gem install bundler:1.17.3
+
+#WORKDIR /home/sandstorm
+#RUN steamcmd/installation/steamcmd.sh +force_install_dir /home/sandstorm/sandstorm-server +login anonymous +app_update 581330 +quit
 
 WORKDIR /home/sandstorm/admin-interface
 
