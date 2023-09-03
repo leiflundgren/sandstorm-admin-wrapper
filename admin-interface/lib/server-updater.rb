@@ -40,11 +40,18 @@ class ServerUpdater
 
   def get_latest_build_id
     back_up_app_cache
+    log "steam get latest build id: #{@steamcmd_path} '+login anonymous' '+app_info_print 581330' '+exit'", level: :info
+
     stdout, stderr, status = Open3.capture3(@steamcmd_path,
       '+login anonymous',
       '+app_info_print 581330',
       '+exit'
     )
+
+    if not stderr.empty?
+      log "steamcmd stderr: \n#{stderr}", level: :debug
+    end
+
     # Convert SteamCMD output to JSON for better traversal
     output = stdout[stdout.index('"581330"')..stdout.index(/^\}$/)]
     # Strip irrelevant characters, add colon separators for JSON
