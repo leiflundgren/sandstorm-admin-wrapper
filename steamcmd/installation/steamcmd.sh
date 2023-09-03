@@ -7,9 +7,9 @@ UNAME=`uname`
 
   
 if [ "$UNAME" == "Linux" ]; then
-  STEAMEXE=`type steamcmd`
+  STEAMEXE=`type -p steamcmd`
   if [ $? -eq 0 ]; then 
-    echo steamcmd is on PATH as $STEAMEXE
+     >&2 echo steamcmd is on PATH as $STEAMEXE
   else 
     STEAMEXE="${STEAMROOT}/linux32/${STEAMCMD}"
     export LD_LIBRARY_PATH="$STEAMROOT/$PLATFORM:$LD_LIBRARY_PATH"
@@ -28,7 +28,10 @@ ulimit -n 2048
 
 MAGIC_RESTART_EXITCODE=42
 
-if [ "$DEBUGGER" == "gdb" ] || [ "$DEBUGGER" == "cgdb" ]; then
+if [[ -z "$DEBUGGER" ]]; then
+  >&2 echo DEBUGGER not set. Starting steamcmd directly
+  "$STEAMEXE" "$@"
+elif [ "$DEBUGGER" == "gdb" ] || [ "$DEBUGGER" == "cgdb" ]; then
   ARGSFILE=$(mktemp $USER.steam.gdb.XXXX)
 
   # Set the LD_PRELOAD varname in the debugger, and unset the global version.
