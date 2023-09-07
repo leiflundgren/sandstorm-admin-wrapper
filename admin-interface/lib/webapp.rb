@@ -29,7 +29,7 @@ $config_handler = ConfigHandler.new
 
 class SandstormAdminWrapperSite < Sinatra::Base
   def self.set_up
-    log "Initializing webserver"
+    log "Initializing webserver", level: :warn
     @@config = load_webapp_config
     @@daemons = {}
     @@daemons_mutex = Mutex.new
@@ -74,25 +74,22 @@ class SandstormAdminWrapperSite < Sinatra::Base
 
   def self.handle_arguments
     args = ARGV.dup
+    config_name_or_id = nil
     while true
       arg = args.shift
       break if arg.nil?
       case arg
       when '--start', '-s'
         config_name_or_id = args.shift
-        break if config_name_or_id.nil?
-        @@daemons_mutex.synchronize do
-          Thread.new(config_name_or_id) do |config_name_or_id|
-            config = $config_handler.server_configs.values.select{|conf| conf['id'] == config_name_or_id || conf['server-config-name'] == config_name_or_id }.first.dup rescue nil
-            sleep 2 # Allow webrick SSL cert to be logged before starting servers
-            if config
-              log "Starting daemon for #{config_name_or_id}", level: :info
-              init_daemon(config, start: true)
-            else
-              log "Unknown server config name/ID: #{config_name_or_id}", level: :warn
-            end
+        # Just save the config-name. Process all other command-line parameters before starting
+        if config_name_or_id.nil? || config_name_or_id == "DEFAULT"
+          if $config_handler.server_configs.size() != 1 
+            log "--start command without specifying config since #{$config_handler.server_configs.size()} configs, cannot choose", level: :info            
+            break
           end
+          config_name_or_id = $config_handler.server_configs.values[0]["id"]
         end
+
       when '--log-level', '-l'
         val = args.shift.to_s.upcase.to_sym
         if Logger::Severity.constants.include? val
@@ -101,8 +98,25 @@ class SandstormAdminWrapperSite < Sinatra::Base
         else
           log "Unknown log level: #{val}. Try one of these: #{Logger::Severity.constants.map(&:to_s).join(', ')}", level: :warn
         end
+
       else
         log "Unknown argument: #{arg}", level: :warn
+      end
+    end
+
+    if not config_name_or_id.nil?
+      log "Starting sandstorm server config #{config_name_or_id}", level: :info
+      @@daemons_mutex.synchronize do
+        Thread.new(config_name_or_id) do |config_name_or_id|
+          config = $config_handler.server_configs.values.select{|conf| conf['id'] == config_name_or_id || conf['server-config-name'] == config_name_or_id }.first.dup rescue nil
+          sleep 2 # Allow webrick SSL cert to be logged before starting servers
+          if config
+            log "Starting daemon for #{config_name_or_id}", level: :info
+            init_daemon(config, start: true)
+          else
+            log "Unknown server config name/ID: #{config_name_or_id}", level: :warn
+          end
+        end
       end
     end
   end
