@@ -10,7 +10,7 @@ class CertificateGenerator
     cert.not_before = Time.now
     cert.not_after = Time.now + 365 * 24 * 60 * 60
     cert.public_key = public_key
-    cert.serial = 0x0
+    cert.serial = 0x4711
     cert.version = 2
     ef = OpenSSL::X509::ExtensionFactory.new
     ef.subject_certificate = cert

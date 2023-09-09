@@ -49,9 +49,9 @@ class ServerUpdater
     )
 
     if not stderr.empty?
-      log "steamcmd stderr: \n#{stderr}", level: :debug
+      log "steamcmd stderr: #{stderr}", level: :debug
     end
-
+    
     # Convert SteamCMD output to JSON for better traversal
     output = stdout[stdout.index('"581330"')..stdout.index(/^\}$/)]
     # Strip irrelevant characters, add colon separators for JSON
