@@ -61,7 +61,15 @@ class ServerUpdater
       # Don't add a comma to any line containing { or when {/} is on the following line
       (line[/[{]/] || lines[index + 1].nil? || lines[index + 1][/[{}]/]) ? line : "#{line},"
     end.join("\n")
-    json = JSON.parse "{#{converted}}"
+    begin
+      json = JSON.parse "{#{converted}}"
+    rescue => e
+      log "Failed to parse json", e
+      log "SteamCMD STDERR: #{stderr}"
+      log converted
+      return nil
+    end
+
     build_id = json.dig('581330', 'depots', 'branches', 'public', 'buildid')
     if build_id.nil?
       log "Unable to get build ID from converted JSON. See log file for debug information.", level: :warn
