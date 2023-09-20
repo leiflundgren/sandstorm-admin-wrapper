@@ -66,6 +66,7 @@ class ServerUpdater
     rescue => e
       log "Failed to parse json", e
       log "SteamCMD STDERR: #{stderr}"
+      log "raw json:"
       log converted
       return nil
     end
