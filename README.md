@@ -100,10 +100,12 @@ Command-line parameters:
 - A Ruby `3.1.2`+ (check with `ruby -v`) installation with the Bundler gem (`gem install bundler`). I recommend [rbenv](https://github.com/rbenv/rbenv) to manage Ruby installations on Linux and [RubyInstaller for Windows](https://rubyinstaller.org/downloads/) to install Ruby on Windows (download Ruby+Devkit).
 - If using this tool to run a server, grab a portable version of [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD#Downloading_SteamCMD) (we'll extract it to `sandstorm-admin-wrapper/steamcmd/installation`)
   - [Windows SteamCMD](https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip)
+    - Ensure the Insurgency: Sandstorm server prerequisites are installed (Windows):
+    - Visual C++ 2015 Redistributable: https://www.microsoft.com/en-us/download/details.aspx?id=53587
+    - Visual C++ 2017 Redistributable: https://aka.ms/vs/15/release/vc_redist.x64.exe
   - [Linux SteamCMD](https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz)
-- Ensure the Insurgency: Sandstorm server prerequisites are installed (Windows):
-  - Visual C++ 2015 Redistributable: https://www.microsoft.com/en-us/download/details.aspx?id=53587
-  - Visual C++ 2017 Redistributable: https://aka.ms/vs/15/release/vc_redist.x64.exe
+    - If steamcmd is installed and on PATH (if installed using linux package-manager) then rename `steamcmd/installation-linux/steamcmd.sh.Template-if-steamcmd-in-PATH` to just `steamcmd.sh`
+
 
 ### Installation
 
