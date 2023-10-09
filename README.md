@@ -104,7 +104,7 @@ Command-line parameters:
     - Visual C++ 2015 Redistributable: https://www.microsoft.com/en-us/download/details.aspx?id=53587
     - Visual C++ 2017 Redistributable: https://aka.ms/vs/15/release/vc_redist.x64.exe
   - [Linux SteamCMD](https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz)
-    - If steamcmd is installed and on PATH (if installed using linux package-manager) then rename `steamcmd/installation-linux/steamcmd.sh.Template-if-steamcmd-in-PATH` to just `steamcmd.sh`
+    - If steamcmd is installed and on PATH (if installed using linux package-manager) then rename `steamcmd/installation-linux/steamcmd.sh.Template-if-steamcmd-in-PATH` to just `steamcmd.sh` (And verify that the file has executable rights. Added with `chmod +x steamcmd.sh`.)
 
 
 ### Installation
