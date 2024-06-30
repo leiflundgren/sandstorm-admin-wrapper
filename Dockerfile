@@ -1,4 +1,4 @@
-FROM ruby:2.7-slim-bullseye
+FROM ruby:3-slim-bookworm
 
 
 RUN apt-get update
@@ -26,7 +26,7 @@ RUN rm steamcmd/installation/steamcmd_linux.tar.gz
 
 RUN cp config/config.toml.docker config/config.toml
 
-RUN gem install bundler:1.17.3
+RUN gem install bundler
 
 #WORKDIR /home/sandstorm
 #RUN steamcmd/installation/steamcmd.sh +force_install_dir /home/sandstorm/sandstorm-server +login anonymous +app_update 581330 +quit

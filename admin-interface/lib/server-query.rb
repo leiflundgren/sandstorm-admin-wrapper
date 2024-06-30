@@ -2,6 +2,7 @@
 
 require 'socket'
 require_relative 'logger'
+require_relative '../ext/string'
 
 # https://developer.valvesoftware.com/wiki/Server_queries
 # https://apidock.com/ruby/Array/pack
@@ -39,6 +40,7 @@ class ServerQuery
     content = "Source Engine Query\0"
     packet = [0xFF, 0xFF, 0xFF, 0xFF, a2s_info_header, content].pack('c5Z*')
 
+    log "[#{server_ip}:#{server_port} A2S_INFO request being sent"
     resp, _ = send_recv_udp(packet, server_ip, server_port)
     log "[#{server_ip}:#{server_port} A2S_INFO response: #{resp.inspect}"
     data = resp.unpack('xxxxccZ*Z*Z*Z*s_cccZZccZ*xxxxxxxxxxxZ*')
