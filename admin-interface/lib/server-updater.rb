@@ -9,8 +9,10 @@ class ServerUpdater
   attr_reader :thread
 
   def initialize(server_root_dir, steamcmd_path, steam_appinfovdf_path)
+    log "server-root #{server_root_dir}", level: :debug
     @server_root_dir = server_root_dir
     @app_manifest = File.join server_root_dir, 'steamapps', 'appmanifest_581330.acf'
+    log "app_manifest #{app_manifest}", level: :debug
     # raise Errno::ENOENT, @app_manifest unless File.exist? @app_manifest
     @steamcmd_path = steamcmd_path
     # raise Errno::ENOENT, @steamcmd_path unless File.exist? @steamcmd_path
