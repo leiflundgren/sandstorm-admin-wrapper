@@ -22,6 +22,7 @@ class MultiTargetLogger
       logger.level = @level
     end
     @loggers = loggers
+    log "Logging initialized to level #@level"
   end
 
   Logger::Severity.constants.each do |severity|
