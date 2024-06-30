@@ -1,0 +1,17 @@
+[/Script/Insurgency.INSGameMode]
+bKillerInfo=True
+bKillerInfoRevealDistance=True
+bKillFeedSpectator=True
+bKillFeed=True
+EnableLog=True
+
+[/Script/Insurgency.INSMultiplayerMode]
+GameStartingIntermissionTime=20
+IdleLimit=900
+BotQuota=3.0
+bAllowPlayerTeamSelect=False
+bKillerInfo=True
+bKillerInfoRevealDistance=True
+bKillFeedSpectator=True
+bKillFeed=True
+EnableLog=True
