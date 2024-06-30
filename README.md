@@ -97,7 +97,7 @@ Command-line parameters:
 ### Prerequisites
 
 - Windows (10 tested) or Linux (Debian 9 tested)
-- A Ruby `3.1.2`+ (check with `ruby -v`) installation with the Bundler gem (`gem install bundler`). I recommend [rbenv](https://github.com/rbenv/rbenv) to manage Ruby installations on Linux and [RubyInstaller for Windows](https://rubyinstaller.org/downloads/) to install Ruby on Windows.
+- A Ruby `3.1.2`+ (check with `ruby -v`) installation with the Bundler gem (`gem install bundler`). I recommend [rbenv](https://github.com/rbenv/rbenv) to manage Ruby installations on Linux and [RubyInstaller for Windows](https://rubyinstaller.org/downloads/) to install Ruby on Windows (download Ruby+Devkit).
 - If using this tool to run a server, grab a portable version of [SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD#Downloading_SteamCMD) (we'll extract it to `sandstorm-admin-wrapper/steamcmd/installation`)
   - [Windows SteamCMD](https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip)
   - [Linux SteamCMD](https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz)
@@ -110,6 +110,7 @@ Command-line parameters:
 - Download and extract (or clone) the repository
 - If you plan to install/run a server, [install SteamCMD](https://developer.valvesoftware.com/wiki/SteamCMD#Downloading_SteamCMD) manually to `sandstorm-admin-wrapper/steamcmd/installation`. `steamcmd.exe`/`steamcmd.sh` should be in the `installation` directory.
   - During runtime, we change the wrapper's `HOME` environment variable to `sandstorm-admin-wrapper/steamcmd` in order to contain SteamCMD's home directory pollution (on Linux) within the wrapper. You may see shell or Steam-related files in this directory as a result.
+- For Ubuntu some ruby-modules are needed.  `sudo apt install git build-essential libc6-dev libssl-dev ruby-dev ruby-bundler ruby-bcrypt ruby-ffi ruby-oj`
 
 [Docker instructions](/Docker.md) are also available.
 
