@@ -155,7 +155,7 @@ class ServerUpdater
 
   # Returns true if an update was performed, false if already up-to-date
   def update_server(buffer=nil, validate: nil, ignore_status: true, ignore_message: true)
-    log 'Updating server', level: :info
+    log "Updating server installdir \"#{@server_root_dir}\"", level: :info
     command = [
       "+force_install_dir \"#{@server_root_dir}\"",
       '+login anonymous',
