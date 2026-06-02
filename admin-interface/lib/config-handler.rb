@@ -100,6 +100,7 @@ MAPMAP = {
   'Farmhouse'  => 'Farmhouse',
   'Forest'     => 'Forest',
   'Gap'        => 'Gap',
+  'Hold'       => 'Hold',
   'LastLight'  => 'LastLight',
   'Ministry'   => 'Ministry',
   'Mountain'   => 'Summit',
